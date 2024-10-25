@@ -3,101 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contract to Cash - Raise ₦1 Million for Your Projects</title>
+    <title>Contract to Cash (C2C) Group</title>
     <style>
-        /* Resetting basic styles */
-        * {
+        body {
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        
-        /* Page background and section styling */
-        body {
             background-color: #f4f4f9;
-            color: #333;
             display: flex;
-            justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+            justify-content: center;
+            height: 100vh;
+            color: #333;
         }
 
-        /* Container for main content */
         .container {
-            background: #fff;
-            border-radius: 8px;
+            width: 90%;
             max-width: 800px;
-            padding: 20px 30px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background: #fff;
+            padding: 2em;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
             text-align: center;
         }
 
-        /* Header and main text styling */
-        .container h1 {
-            font-size: 2rem;
-            color: #333;
-            margin-bottom: 15px;
+        h1 {
+            color: #2a2a72;
+            font-size: 2em;
+            margin-bottom: 0.5em;
         }
 
-        .container h3 {
-            font-size: 1.2rem;
-            color: #555;
-            font-weight: normal;
-            margin-bottom: 20px;
-        }
-
-        .container p {
-            font-size: 1rem;
-            color: #555;
+        p {
+            font-size: 1em;
             line-height: 1.6;
-            margin-bottom: 20px;
+            color: #555;
+            margin-bottom: 1em;
         }
 
-        /* Button styling */
-        .join-button {
-            display: inline-block;
-            padding: 12px 25px;
-            background-color: #0077b6;
-            color: #fff;
-            font-size: 1rem;
+        .dynamic-text-box {
+            border: 2px solid #2a2a72;
+            padding: 10px;
+            margin: 1.5em 0;
+            font-size: 1.25em;
+            color: #2a2a72;
             font-weight: bold;
+            border-radius: 6px;
+        }
+
+        .btn-join {
+            background-color: #2a2a72;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            cursor: pointer;
             text-decoration: none;
             border-radius: 5px;
             transition: background-color 0.3s ease;
         }
 
-        .join-button:hover {
-            background-color: #005f8a;
-        }
-
-        /* Footer styling */
-        .container .footer {
-            font-size: 0.9rem;
-            color: #888;
-            margin-top: 30px;
+        .btn-join:hover {
+            background-color: #1e1e5b;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Raise ₦1 Million for Your Business or Personal Projects</h1>
-        <h3>With Contract to Cash (C2C) Group 💼💰</h3>
-        
-        <p>Welcome to <strong>Contract to Cash (C2C)</strong>, a thriving community designed to help you raise at least 1 million Naira for your business or personal projects.</p>
-        
-        <p>Whether you want to <strong>start or expand a business, buy a house, build a home, or fund education</strong>, we’re here to show you a powerful system called <strong>Estate Contracts (ESTCON) trading</strong> that grows your funds.</p>
-        
-        <p><strong>No loans or borrowing</strong> needed! We provide step-by-step guidance on using your savings to invest in ESTCON—a stable digital asset that grows in value, just like real estate. Start small, grow big, and reach your financial goals!</p>
-        
-        <a href="https://chat.whatsapp.com/CFk9lDppuwkAF7jpQY2m41" target="_blank" class="join-button">Join Now</a>
+<div class="container">
+    <h1>Raise 1 Million+ for Your Business or Projects</h1>
+    <p>Join the <strong>Contract to Cash (C2C) Group</strong> and discover how to raise capital for your business or personal projects like starting a new business, expanding an existing one, buying a new house, funding education, and more!</p>
+    <p>Through ESTCON Trading, C2C teaches you how to transform your money into wealth without borrowing or loans. Get step-by-step guidance on buying and selling this stable digital asset and reaching your financial goals.</p>
 
-        <div class="footer">
-            <p>&copy; 2024 Contract to Cash | All rights reserved</p>
-        </div>
-    </div>
+    <div class="dynamic-text-box" id="dynamicText">Join C2C GROUP</div>
+
+    <a href="https://chat.whatsapp.com/CFk9lDppuwkAF7jpQY2m41" target="_blank" class="btn-join">Join C2C Group</a>
+</div>
+
+<script>
+    const texts = ["Join C2C GROUP", "Learn ESTCON TRADE", "Raise ₦One Million+", "Fund YOUR DREAMS"];
+    let index = 0;
+    const dynamicText = document.getElementById("dynamicText");
+
+    function changeText() {
+        dynamicText.textContent = texts[index];
+        index = (index + 1) % texts.length;
+    }
+
+    setInterval(changeText, 2000);
+</script>
 
 </body>
-</html
+</html>
