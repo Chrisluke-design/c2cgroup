@@ -1,95 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contract to Cash (C2C) Group</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            color: #333;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 800px;
-            background: #fff;
-            padding: 2em;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        h1 {
-            color: #2a2a72;
-            font-size: 2em;
-            margin-bottom: 0.5em;
-        }
-
-        p {
-            font-size: 1em;
-            line-height: 1.6;
-            color: #555;
-            margin-bottom: 1em;
-        }
-
-        .dynamic-text-box {
-            border: 2px solid #2a2a72;
-            padding: 10px;
-            margin: 1.5em 0;
-            font-size: 1.25em;
-            color: #2a2a72;
-            font-weight: bold;
-            border-radius: 6px;
-        }
-
-        .btn-join {
-            background-color: #2a2a72;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1.1em;
-            cursor: pointer;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn-join:hover {
-            background-color: #1e1e5b;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EFX Trading Chart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1a1a66;
+      color: white;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      color: #ffcc00;
+      margin-bottom: 20px;
+    }
+    .chart-container {
+      width: 80%;
+      max-width: 600px;
+      height: 300px;
+      background-color: #00004d;
+      margin: 20px auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-around;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .bar {
+      width: 15%;
+      background-color: #ff5733;
+      text-align: center;
+      font-size: 14px;
+      font-weight: bold;
+      transition: height 0.5s ease-in-out;
+      border-radius: 5px;
+    }
+    .bar-label {
+      margin-top: 5px;
+      font-size: 14px;
+    }
+    #popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #1a1a66;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      color: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+    #popup button {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #ffcc00;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #popup button:hover {
+      background-color: #e6b800;
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Raise 1 Million+ for Your Business or Projects</h1>
-    <p>Join the <strong>Contract to Cash (C2C) Group</strong> and discover how to raise capital for your business or personal projects like starting a new business, expanding an existing business, buying a new house, funding your education, travelling abroad, and more!</p>
-    <p>Through ESTCON Trading, C2C teaches you how to transform your money into wealth without borrowing or loans. Get step-by-step guidance on buying and selling this stable digital asset and reaching your financial goals.</p>
+  <h1>Estcon Futures Exchange (EFX) Trading Chart</h1>
+  <div class="chart-container" id="chart">
+    <div class="bar" data-size="500 SQM">500</div>
+    <div class="bar" data-size="600 SQM">600</div>
+    <div class="bar" data-size="700 SQM">700</div>
+    <div class="bar" data-size="800 SQM">800</div>
+    <div class="bar" data-size="900 SQM">900</div>
+    <div class="bar" data-size="1000 SQM">1000</div>
+  </div>
 
-    <div class="dynamic-text-box" id="dynamicText">Join C2C GROUP</div>
-
-    <a href="https://chat.whatsapp.com/CFk9lDppuwkAF7jpQY2m41" target="_blank" class="btn-join">Join C2C Group</a>
-</div>
-
+  <div id="popup">
+    <h2>Current Exchange Data</h2>
+    <p>ESTCON Size: <span id="popup-size"></span></p>
+    <p>Current EFX Rate: <span id="efx-rate"></span>%</p>
+    <p>Trading Volume: <span id="trading-volume"></span> PTGN</p>
+    <button onclick="closePopup()">Close</button>
+  </div>
+  
 <script>
-    const texts = ["Join C2C GROUP", "Learn ESTCON TRADE", "Raise ₦One Million+", "Fund YOUR DREAMS"];
-    let index = 0;
-    const dynamicText = document.getElementById("dynamicText");
+document.addEventListener("DOMContentLoaded", function () {
+    const bars = document.querySelectorAll(".bar");
+    const popup = document.getElementById("popup");
+    const popupSize = document.getElementById("popup-size");
+    const efxRate = document.getElementById("efx-rate");
+    const tradingVolume = document.getElementById("trading-volume");
 
-    function changeText() {
-        dynamicText.textContent = texts[index];
-        index = (index + 1) % texts.length;
+    function updateChart() {
+        fetch("get_chart_data.php")
+            .then(response => response.json())
+            .then(data => {
+                data.forEach((item, index) => {
+                    if (bars[index]) {
+                        // Animate height changes
+                        let newHeight = item.trading_volume / 10;
+                        bars[index].style.transition = "height 1s ease-in-out";
+                        bars[index].style.height = `${newHeight}px`;
+
+                        // Randomize bar colors
+                        bars[index].style.backgroundColor = `hsl(${Math.floor(Math.random() * 360)}, 70%, 50%)`;
+                        
+                        // Display the size on the bar
+                        bars[index].textContent = item.size;
+
+                        // Attach click event to show popup
+                        bars[index].onclick = function () {
+                            popupSize.textContent = item.size;
+                            efxRate.textContent = item.efx_rate;
+                            tradingVolume.textContent = item.trading_volume;
+                            popup.style.display = "block";
+                        };
+                    }
+                });
+            })
+            .catch(error => console.error("Error fetching data:", error));
     }
 
-    setInterval(changeText, 2000);
+    function closePopup() {
+        popup.style.display = "none";
+    }
+
+    window.closePopup = closePopup;
+    updateChart();
+    setInterval(updateChart, 30000); // Auto-refresh every 30 seconds
+});
 </script>
 
 </body>
