@@ -1,5 +1,11 @@
 <?php
 header('Content-Type: application/json');
+header("Access-Control-Allow-Origin: *"); // Fix CORS issue
+header("Access-Control-Allow-Methods: GET");
+
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 // Function to generate a random number
 function getRandomWholeNumber($min, $max) {
@@ -12,9 +18,9 @@ $data = [];
 
 foreach ($sizes as $size) {
     if ($size == "500 SQM" || $size == "800 SQM") {
-        $efx = number_format(1000 / getRandomWholeNumber(10, 20), 2);
+        $efx = (float) number_format(1000 / getRandomWholeNumber(10, 20), 2);
     } else {
-        $efx = number_format(500 / getRandomWholeNumber(10, 20), 2);
+        $efx = (float) number_format(500 / getRandomWholeNumber(10, 20), 2);
     }
 
     if ($size == "500 SQM") {
@@ -31,6 +37,5 @@ foreach ($sizes as $size) {
 }
 
 // Send JSON response
-echo json_encode($data);
-
-
+echo json_encode($data, JSON_PRETTY_PRINT);
+?>
