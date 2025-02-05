@@ -35,8 +35,12 @@
       text-align: center;
       font-size: 14px;
       font-weight: bold;
-      transition: height 0.5s ease-in-out;
+      transition: height 0.5s ease-in-out, background-color 0.5s ease-in-out;
       border-radius: 5px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 5px;
     }
     .bar-label {
       margin-top: 5px;
@@ -89,8 +93,8 @@
     <p>Trading Volume: <span id="trading-volume"></span> PTGN</p>
     <button onclick="closePopup()">Close</button>
   </div>
-  
-<script>
+
+  <script>
 document.addEventListener("DOMContentLoaded", function () {
     const bars = document.querySelectorAll(".bar");
     const popup = document.getElementById("popup");
@@ -104,15 +108,11 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(data => {
                 data.forEach((item, index) => {
                     if (bars[index]) {
-                        // Animate height changes
-                        let newHeight = item.trading_volume / 10;
-                        bars[index].style.transition = "height 1s ease-in-out";
+                        let newHeight = Math.max(item.trading_volume / 10, 20); // Ensure height is not too small
                         bars[index].style.height = `${newHeight}px`;
 
-                        // Randomize bar colors
-                        bars[index].style.backgroundColor = `hsl(${Math.floor(Math.random() * 360)}, 70%, 50%)`;
-                        
-                        // Display the size on the bar
+                        // Generate a random color for each bar
+                        bars[index].style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 50%)`;
                         bars[index].textContent = item.size;
 
                         // Attach click event to show popup
