@@ -1,142 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EFX Trading Chart</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #1a1a66;
-      color: white;
-      margin: 0;
-      padding: 20px;
-      text-align: center;
-    }
-    h1 {
-      color: #ffcc00;
-      margin-bottom: 20px;
-    }
-    .chart-container {
-      width: 80%;
-      max-width: 600px;
-      height: 300px;
-      background-color: #00004d;
-      margin: 20px auto;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-around;
-      border-radius: 10px;
-      padding: 20px;
-    }
-    .bar {
-      width: 15%;
-      background-color: #ff5733;
-      text-align: center;
-      font-size: 14px;
-      font-weight: bold;
-      transition: height 0.5s ease-in-out, background-color 0.5s ease-in-out;
-      border-radius: 5px;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      padding-bottom: 5px;
-    }
-    .bar-label {
-      margin-top: 5px;
-      font-size: 14px;
-    }
-    #popup {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #1a1a66;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-      color: white;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    }
-    #popup button {
-      margin-top: 10px;
-      padding: 10px;
-      background-color: #ffcc00;
-      color: #000;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    #popup button:hover {
-      background-color: #e6b800;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estcon Futures Xchange (EFX) – Earn More in 60 Seconds</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
 </head>
 <body>
+    <header>
+        <h1>Estcon Futures Xchange (EFX)</h1>
+        <p>Make More Money from ESTCON Exchange in 60 Seconds!</p>
+        <a href="https://wa.me/2348032219339" class="cta">Join on WhatsApp</a>
+    </header>
 
-  <h1>Estcon Futures Exchange (EFX) Trading Chart</h1>
-  <div class="chart-container" id="chart">
-    <div class="bar" data-size="500 SQM">500</div>
-    <div class="bar" data-size="600 SQM">600</div>
-    <div class="bar" data-size="700 SQM">700</div>
-    <div class="bar" data-size="800 SQM">800</div>
-    <div class="bar" data-size="900 SQM">900</div>
-    <div class="bar" data-size="1000 SQM">1000</div>
-  </div>
+    <section id="what-is-efx">
+        <h2>What is Estcon Futures Xchange (EFX)?</h2>
+        <p>EFX allows you to make money by getting the best buying or selling prices from Broker-Dealer Market Makers in the ESTCON Exchange.</p>
+        <p>Enter the market at a **Limit Price**, and within 60 seconds, the market decides if you **profit** or **take a small loss**.</p>
+    </section>
 
-  <div id="popup">
-    <h2>Current Exchange Data</h2>
-    <p>ESTCON Size: <span id="popup-size"></span></p>
-    <p>Current EFX Rate: <span id="efx-rate"></span>%</p>
-    <p>Trading Volume: <span id="trading-volume"></span> PTGN</p>
-    <button onclick="closePopup()">Close</button>
-  </div>
+    <section id="how-it-works">
+        <h2>How Do You Make Money?</h2>
+        <ul>
+            <li><span class="green">✅ Profit:</span> If price goes up by 50%, you earn a 50% profit.</li>
+            <li><span class="red">❌ Loss:</span> If price goes down by 50%, you lose only 50%.</li>
+            <li><span class="blue">🔋 Take Profit Return:</span> Secure your profit before time expires!</li>
+        </ul>
+    </section>
 
-  <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const bars = document.querySelectorAll(".bar");
-    const popup = document.getElementById("popup");
-    const popupSize = document.getElementById("popup-size");
-    const efxRate = document.getElementById("efx-rate");
-    const tradingVolume = document.getElementById("trading-volume");
+    <section id="why-efx">
+        <h2>Why EFX is NOT Gambling (No Guesswork, Just Strategy)</h2>
+        <ul>
+            <li>📊 Uses Market Strategy, NOT luck.</li>
+            <li>📈 Follows **Bid Prices** from ESTCON Brokers.</li>
+            <li>📌 Uses **Trading Volume & Signals** for best trades.</li>
+        </ul>
+    </section>
 
-    function updateChart() {
-        fetch("get_chart_data.php")
-            .then(response => response.json())
-            .then(data => {
-                data.forEach((item, index) => {
-                    if (bars[index]) {
-                        let newHeight = Math.max(item.trading_volume / 10, 20); // Ensure height is not too small
-                        bars[index].style.height = `${newHeight}px`;
+    <section id="benefits">
+        <h2>Why You Should Trade on EFX</h2>
+        <ul>
+            <li>✔ Make Money in **60 Seconds** – Up to 50% profit instantly.</li>
+            <li>✔ **Risk is Limited** – Loss is only 50%, and ESTCON retains value.</li>
+            <li>✔ **Simple & Fast** – No long waiting period.</li>
+            <li>✔ **Controlled Market** – Smooth price movements.</li>
+            <li>✔ **No Hidden Fees** – Zero funding & withdrawal charges.</li>
+        </ul>
+    </section>
 
-                        // Generate a random color for each bar
-                        bars[index].style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 50%)`;
-                        bars[index].textContent = item.size;
+    <section id="how-to-start">
+        <h2>How to Start Trading on EFX</h2>
+        <ol>
+            <li>🔹 **Register/Login** to the Penvestor Estcon Trading Platform.</li>
+            <li>🔹 **Fund Your EFX Balance** from your Estcon Cash Balance.</li>
+            <li>🔹 **Analyze Market** using EFX Chart.</li>
+            <li>🔹 **Set Your Limit Price & Open Order.**</li>
+            <li>🔹 **Monitor Market & Click "Take Return" for Profit.**</li>
+        </ol>
+    </section>
 
-                        // Attach click event to show popup
-                        bars[index].onclick = function () {
-                            popupSize.textContent = item.size;
-                            efxRate.textContent = item.efx_rate;
-                            tradingVolume.textContent = item.trading_volume;
-                            popup.style.display = "block";
-                        };
-                    }
-                });
-            })
-            .catch(error => console.error("Error fetching data:", error));
-    }
+    <section id="cta">
+        <h2>Want to Trade Like a Pro?</h2>
+        <p>Join **Billionaire Estators Nation** for:</p>
+        <ul>
+            <li>📢 **Daily Trading Signals** to boost profits.</li>
+            <li>📖 **EFX Trading Strategy** for mastery.</li>
+            <li>🤝 **Live WhatsApp Support** for guidance.</li>
+        </ul>
+        <a href="https://wa.me/2348032219339" class="cta">Join on WhatsApp</a>
+    </section>
 
-    function closePopup() {
-        popup.style.display = "none";
-    }
-
-    window.closePopup = closePopup;
-    updateChart();
-    setInterval(updateChart, 30000); // Auto-refresh every 30 seconds
-});
-</script>
-
+    <footer>
+        <p>📞 Contact Support: <a href="tel:+2348032219339">+2348032219339</a></p>
+        <p>📌 Billionaire Estators Nation | Powered by Penvestor Global</p>
+    </footer>
 </body>
 </html>
