@@ -3,77 +3,341 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estcon Futures Xchange (EFX) – Earn More in 60 Seconds</title>
-    <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
+    <title>St Mary's Voice Math Duel</title>
+    <style>
+        :root {
+            --school-blue: #003366;
+            --school-gold: #f1c40f;
+            --p1-color: #2ecc71;
+            --p2-color: #3498db;
+            --danger: #e74c3c;
+            --light: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #003366, #00509d);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #2c3e50;
+        }
+
+        .game-container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            width: 95%;
+            max-width: 700px;
+            text-align: center;
+            border: 6px solid var(--school-gold);
+        }
+
+        .header h1 { color: var(--school-blue); margin: 0; font-size: 1.5rem; text-transform: uppercase; }
+        .header p { font-weight: bold; color: #666; margin: 5px 0 15px 0; }
+
+        .scoreboard {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .player-box {
+            flex: 1;
+            padding: 15px;
+            border-radius: 12px;
+            background: var(--light);
+            border: 3px solid transparent;
+            transition: 0.3s;
+        }
+
+        .player-box.active-p1 { border-color: var(--p1-color); background: #e8f8f0; transform: scale(1.05); }
+        .player-box.active-p2 { border-color: var(--p2-color); background: #ebf5fb; transform: scale(1.05); }
+
+        .score-val { font-size: 1.8rem; font-weight: bold; display: block; }
+        .timer-display { font-size: 1.4rem; font-weight: bold; color: var(--danger); }
+
+        .question-area {
+            background: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            min-height: 100px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #question-text { font-size: 1.3rem; line-height: 1.4; font-weight: 600; }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        input[type="text"] {
+            width: 50%;
+            padding: 12px;
+            font-size: 1.2rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .mic-btn {
+            background: #f1c40f;
+            border: none;
+            border-radius: 50%;
+            width: 55px;
+            height: 55px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .mic-btn.listening {
+            background: #e74c3c;
+            color: white;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+        }
+
+        .btn-group { display: flex; gap: 10px; margin-top: 10px; }
+        .main-btn {
+            flex: 1;
+            padding: 15px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background: var(--school-blue);
+            color: white;
+        }
+
+        #feedback { margin-top: 10px; font-weight: bold; height: 25px; font-size: 1.1rem; }
+        .p1-text { color: var(--p1-color); }
+        .p2-text { color: var(--p2-color); }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Estcon Futures Xchange (EFX)</h1>
-        <p>Make More Money from ESTCON Exchange in 60 Seconds!</p>
-        <a href="https://wa.me/2348032219339" class="cta">Join on WhatsApp</a>
-    </header>
 
-    <section id="what-is-efx">
-        <h2>What is Estcon Futures Xchange (EFX)?</h2>
-        <p>EFX allows you to make money by getting the best buying or selling prices from Broker-Dealer Market Makers in the ESTCON Exchange.</p>
-        <p>Enter the market at a **Limit Price**, and within 60 seconds, the market decides if you **profit** or **take a small loss**.</p>
-    </section>
+<div class="game-container">
+    <div class="header">
+        <h1>ST MARY'S COLLEGE KWAMBA</h1>
+        <p>Suleja, Niger State | Voice Math Duel</p>
+    </div>
 
-    <section id="how-it-works">
-        <h2>How Do You Make Money?</h2>
-        <ul>
-            <li><span class="green">✅ Profit:</span> If price goes up by 50%, you earn a 50% profit.</li>
-            <li><span class="red">❌ Loss:</span> If price goes down by 50%, you lose only 50%.</li>
-            <li><span class="blue">🔋 Take Profit Return:</span> Secure your profit before time expires!</li>
-        </ul>
-    </section>
+    <div class="scoreboard">
+        <div id="p1-box" class="player-box">
+            <span>PLAYER 1</span>
+            <span id="p1-score" class="score-val">0</span>
+        </div>
+        <div class="timer-section">
+            <div class="timer-display">⏱ <span id="timer">300</span>s</div>
+        </div>
+        <div id="p2-box" class="player-box">
+            <span>PLAYER 2</span>
+            <span id="p2-score" class="score-val">0</span>
+        </div>
+    </div>
 
-    <section id="why-efx">
-        <h2>Why EFX is NOT Gambling (No Guesswork, Just Strategy)</h2>
-        <ul>
-            <li>📊 Uses Market Strategy, NOT luck.</li>
-            <li>📈 Follows **Bid Prices** from ESTCON Brokers.</li>
-            <li>📌 Uses **Trading Volume & Signals** for best trades.</li>
-        </ul>
-    </section>
+    <div class="question-area">
+        <div id="question-text">Ready? Enable Mic & Press Start!</div>
+    </div>
 
-    <section id="benefits">
-        <h2>Why You Should Trade on EFX</h2>
-        <ul>
-            <li>✔ Make Money in **60 Seconds** – Up to 50% profit instantly.</li>
-            <li>✔ **Risk is Limited** – Loss is only 50%, and ESTCON retains value.</li>
-            <li>✔ **Simple & Fast** – No long waiting period.</li>
-            <li>✔ **Controlled Market** – Smooth price movements.</li>
-            <li>✔ **No Hidden Fees** – Zero funding & withdrawal charges.</li>
-        </ul>
-    </section>
+    <div class="input-group">
+        <input type="text" id="answer-input" placeholder="Type or Speak..." disabled>
+        <button id="mic-btn" class="mic-btn" title="Click and say answer">🎤</button>
+    </div>
+    
+    <div class="btn-group">
+        <button id="action-btn" class="main-btn">Start Game</button>
+    </div>
 
-    <section id="how-to-start">
-        <h2>How to Start Trading on EFX</h2>
-        <ol>
-            <li>🔹 **Register/Login** to the Penvestor Estcon Trading Platform.</li>
-            <li>🔹 **Fund Your EFX Balance** from your Estcon Cash Balance.</li>
-            <li>🔹 **Analyze Market** using EFX Chart.</li>
-            <li>🔹 **Set Your Limit Price & Open Order.**</li>
-            <li>🔹 **Monitor Market & Click "Take Return" for Profit.**</li>
-        </ol>
-    </section>
+    <div id="feedback"></div>
+</div>
 
-    <section id="cta">
-        <h2>Want to Trade Like a Pro?</h2>
-        <p>Join **Billionaire Estators Nation** for:</p>
-        <ul>
-            <li>📢 **Daily Trading Signals** to boost profits.</li>
-            <li>📖 **EFX Trading Strategy** for mastery.</li>
-            <li>🤝 **Live WhatsApp Support** for guidance.</li>
-        </ul>
-        <a href="https://wa.me/2348032219339" class="cta">Join on WhatsApp</a>
-    </section>
+<script>
+    let scores = [0, 0];
+    let timeLeft = 300;
+    let timer;
+    let currentAnswer;
+    let currentPlayer = 1;
+    let isPlaying = false;
 
-    <footer>
-        <p>📞 Contact Support: <a href="tel:+2348032219339">+2348032219339</a></p>
-        <p>📌 Billionaire Estators Nation | Powered by Penvestor Global</p>
-    </footer>
+    // Speech Setup
+    const synth = window.speechSynthesis;
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let recognition;
+    
+    if (SpeechRecognition) {
+        recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+    }
+
+    const qText = document.getElementById('question-text');
+    const input = document.getElementById('answer-input');
+    const actionBtn = document.getElementById('action-btn');
+    const micBtn = document.getElementById('mic-btn');
+    const timerEl = document.getElementById('timer');
+    const feedbackEl = document.getElementById('feedback');
+
+    const helpers = {
+        gcd: (a, b) => b === 0 ? a : helpers.gcd(b, a % b),
+        lcm: (a, b) => (a * b) / helpers.gcd(a, b),
+        speak: (text) => {
+            synth.cancel();
+            const utter = new SpeechSynthesisUtterance(text);
+            synth.speak(utter);
+        },
+        // Converts words like "three fourths" or "one over two" to "3/4" or "1/2"
+        normalizeVoice: (str) => {
+            return str.toLowerCase()
+                .replace(/ over /g, '/')
+                .replace(/ to /g, ':')
+                .replace(/[^0-9/:a-z]/g, '');
+        }
+    };
+
+    function generateQuestion() {
+        const categories = ['Triangle', 'Percentage', 'Ratio', 'HCF_LCM', 'Fractions'];
+        const category = categories[Math.floor(Math.random() * categories.length)];
+        let prompt = "";
+
+        document.getElementById('p1-box').className = currentPlayer === 1 ? 'player-box active-p1' : 'player-box';
+        document.getElementById('p2-box').className = currentPlayer === 2 ? 'player-box active-p2' : 'player-box';
+
+        switch(category) {
+            case 'Triangle':
+                if (Math.random() < 0.5) {
+                    const a1 = Math.floor(Math.random() * 60) + 20;
+                    const a2 = Math.floor(Math.random() * 60) + 20;
+                    prompt = `Two angles are ${a1} and ${a2}. What is the third angle?`;
+                    currentAnswer = (180 - (a1 + a2)).toString();
+                } else {
+                    const types = [{q:"What is a triangle with three equal sides?", a:"equilateral"}, {q:"Sum of angles in a triangle?", a:"180"}];
+                    let pick = types[Math.floor(Math.random()*types.length)];
+                    prompt = pick.q; currentAnswer = pick.a;
+                }
+                break;
+            case 'Fractions':
+                const n1 = Math.floor(Math.random()*4)+1, d1 = Math.floor(Math.random()*3)+2;
+                const n2 = Math.floor(Math.random()*4)+1, d2 = Math.floor(Math.random()*3)+2;
+                prompt = `What is ${n1}/${d1} times ${n2}/${d2}?`;
+                const rn = n1*n2, rd = d1*d2;
+                const c = helpers.gcd(rn, rd);
+                currentAnswer = (rd/c === 1) ? (rn/c).toString() : `${rn/c}/${rd/c}`;
+                break;
+            case 'Percentage':
+                const p = [10, 20, 25, 50][Math.floor(Math.random()*4)];
+                const v = (Math.floor(Math.random()*10)+1)*20;
+                prompt = `What is ${p} percent of ${v}?`;
+                currentAnswer = ((p/100)*v).toString();
+                break;
+            case 'Ratio':
+                const r1 = Math.floor(Math.random()*5)+2, r2 = Math.floor(Math.random()*5)+2;
+                prompt = `Simplify the ratio ${r1*2} to ${r2*2}`;
+                const common = helpers.gcd(r1*2, r2*2);
+                currentAnswer = `${(r1*2)/common}:${(r2*2)/common}`;
+                break;
+            case 'HCF_LCM':
+                const mode = Math.random() > 0.5 ? 'HCF' : 'LCM';
+                const v1 = Math.floor(Math.random()*10)+2, v2 = Math.floor(Math.random()*10)+2;
+                prompt = `Find the ${mode} of ${v1} and ${v2}`;
+                currentAnswer = (mode==='HCF' ? helpers.gcd(v1,v2) : helpers.lcm(v1,v2)).toString();
+                break;
+        }
+
+        qText.innerText = `PLAYER ${currentPlayer}: ${prompt}`;
+        helpers.speak(`Player ${currentPlayer}, ${prompt}`);
+    }
+
+    function checkAnswer(val) {
+        if(!isPlaying) return;
+        const normalizedUser = helpers.normalizeVoice(val);
+        const normalizedCorrect = helpers.normalizeVoice(currentAnswer);
+
+        if(normalizedUser === normalizedCorrect) {
+            scores[currentPlayer-1] += 10;
+            feedbackEl.innerText = "Correct! +10";
+            feedbackEl.className = currentPlayer === 1 ? 'p1-text' : 'p2-text';
+        } else {
+            feedbackEl.innerText = `Wrong! It was ${currentAnswer}`;
+            feedbackEl.className = 'wrong';
+        }
+        
+        document.getElementById(`p${currentPlayer}-score`).innerText = scores[currentPlayer-1];
+        currentPlayer = currentPlayer === 1 ? 2 : 1;
+        input.value = '';
+        generateQuestion();
+    }
+
+    micBtn.addEventListener('click', () => {
+        if (!recognition || !isPlaying) return;
+        recognition.start();
+        micBtn.classList.add('listening');
+        feedbackEl.innerText = "Listening...";
+    });
+
+    if(recognition) {
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            input.value = transcript;
+            micBtn.classList.remove('listening');
+            checkAnswer(transcript);
+        };
+        recognition.onerror = () => {
+            micBtn.classList.remove('listening');
+            feedbackEl.innerText = "Error: Mic not recognized.";
+        };
+    }
+
+    function startGame() {
+        scores = [0, 0]; timeLeft = 300; isPlaying = true; currentPlayer = 1;
+        document.getElementById('p1-score').innerText = 0;
+        document.getElementById('p2-score').innerText = 0;
+        input.disabled = false; input.focus();
+        actionBtn.innerText = "Submit (Enter)";
+        generateQuestion();
+        timer = setInterval(() => {
+            timeLeft--;
+            timerEl.innerText = timeLeft;
+            if(timeLeft <= 0) endGame();
+        }, 1000);
+    }
+
+    function endGame() {
+        clearInterval(timer);
+        isPlaying = false;
+        input.disabled = true;
+        const winner = scores[0] > scores[1] ? "Player 1 Wins!" : (scores[1] > scores[0] ? "Player 2 Wins!" : "Tie!");
+        qText.innerText = `Game Over! ${winner}`;
+        helpers.speak(`The contest is over. ${winner}`);
+        actionBtn.innerText = "Restart Game";
+    }
+
+    actionBtn.addEventListener('click', () => isPlaying ? checkAnswer(input.value) : startGame());
+    input.addEventListener('keypress', (e) => { if(e.key === 'Enter') checkAnswer(input.value); });
+</script>
 </body>
 </html>
