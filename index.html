@@ -160,7 +160,7 @@
     </div>
 
     <div class="question-area">
-        <div id="question-text">Ready? Enable Mic & Press Start!</div>
+        <div id="question-text">Ready for the New Topics? Press Start!</div>
     </div>
 
     <div class="input-group">
@@ -183,7 +183,6 @@
     let currentPlayer = 1;
     let isPlaying = false;
 
-    // Speech Setup
     const synth = window.speechSynthesis;
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     let recognition;
@@ -192,7 +191,6 @@
         recognition = new SpeechRecognition();
         recognition.continuous = false;
         recognition.lang = 'en-US';
-        recognition.interimResults = false;
     }
 
     const qText = document.getElementById('question-text');
@@ -203,68 +201,96 @@
     const feedbackEl = document.getElementById('feedback');
 
     const helpers = {
-        gcd: (a, b) => b === 0 ? a : helpers.gcd(b, a % b),
-        lcm: (a, b) => (a * b) / helpers.gcd(a, b),
         speak: (text) => {
             synth.cancel();
             const utter = new SpeechSynthesisUtterance(text);
             synth.speak(utter);
         },
-        // Converts words like "three fourths" or "one over two" to "3/4" or "1/2"
-        normalizeVoice: (str) => {
-            return str.toLowerCase()
-                .replace(/ over /g, '/')
-                .replace(/ to /g, ':')
-                .replace(/[^0-9/:a-z]/g, '');
-        }
+        normalize: (str) => str.toLowerCase().replace(/[^0-9.a-z]/g, '')
     };
 
     function generateQuestion() {
-        const categories = ['Triangle', 'Percentage', 'Ratio', 'HCF_LCM', 'Fractions'];
-        const category = categories[Math.floor(Math.random() * categories.length)];
+        const topics = [
+            'BaseConversion', 'FractionDecimal', 'SimplePercentage', 
+            'RatioSharing', 'Equations', 'LinesAngles', 
+            'SquareGeometry', 'WordProblems', 'Statistics'
+        ];
+        const topic = topics[Math.floor(Math.random() * topics.length)];
         let prompt = "";
 
         document.getElementById('p1-box').className = currentPlayer === 1 ? 'player-box active-p1' : 'player-box';
         document.getElementById('p2-box').className = currentPlayer === 2 ? 'player-box active-p2' : 'player-box';
 
-        switch(category) {
-            case 'Triangle':
-                if (Math.random() < 0.5) {
-                    const a1 = Math.floor(Math.random() * 60) + 20;
-                    const a2 = Math.floor(Math.random() * 60) + 20;
-                    prompt = `Two angles are ${a1} and ${a2}. What is the third angle?`;
-                    currentAnswer = (180 - (a1 + a2)).toString();
-                } else {
-                    const types = [{q:"What is a triangle with three equal sides?", a:"equilateral"}, {q:"Sum of angles in a triangle?", a:"180"}];
-                    let pick = types[Math.floor(Math.random()*types.length)];
-                    prompt = pick.q; currentAnswer = pick.a;
-                }
+        switch(topic) {
+            case 'BaseConversion':
+                const binary = ["10", "11", "101", "110", "111"][Math.floor(Math.random()*5)];
+                prompt = `Convert binary number ${binary} to base 10.`;
+                currentAnswer = parseInt(binary, 2).toString();
                 break;
-            case 'Fractions':
-                const n1 = Math.floor(Math.random()*4)+1, d1 = Math.floor(Math.random()*3)+2;
-                const n2 = Math.floor(Math.random()*4)+1, d2 = Math.floor(Math.random()*3)+2;
-                prompt = `What is ${n1}/${d1} times ${n2}/${d2}?`;
-                const rn = n1*n2, rd = d1*d2;
-                const c = helpers.gcd(rn, rd);
-                currentAnswer = (rd/c === 1) ? (rn/c).toString() : `${rn/c}/${rd/c}`;
+
+            case 'FractionDecimal':
+                const fracs = [{q:"1/2", a:"0.5"}, {q:"1/4", a:"0.25"}, {q:"1/5", a:"0.2"}, {q:"2/5", a:"0.4"}, {q:"3/4", a:"0.75"}];
+                const f = fracs[Math.floor(Math.random()*fracs.length)];
+                prompt = `Convert the fraction ${f.q} to a decimal.`;
+                currentAnswer = f.a;
                 break;
-            case 'Percentage':
+
+            case 'SimplePercentage':
                 const p = [10, 20, 25, 50][Math.floor(Math.random()*4)];
-                const v = (Math.floor(Math.random()*10)+1)*20;
-                prompt = `What is ${p} percent of ${v}?`;
-                currentAnswer = ((p/100)*v).toString();
+                const val = (Math.floor(Math.random()*10)+1)*100;
+                prompt = `What is ${p} percent of ${val}?`;
+                currentAnswer = ((p/100)*val).toString();
                 break;
-            case 'Ratio':
-                const r1 = Math.floor(Math.random()*5)+2, r2 = Math.floor(Math.random()*5)+2;
-                prompt = `Simplify the ratio ${r1*2} to ${r2*2}`;
-                const common = helpers.gcd(r1*2, r2*2);
-                currentAnswer = `${(r1*2)/common}:${(r2*2)/common}`;
+
+            case 'RatioSharing':
+                const ratios = [{r1:2, r2:3, total:2000, ans:800}, {r1:1, r2:4, total:500, ans:100}, {r1:3, r2:2, total:1000, ans:600}];
+                const rs = ratios[Math.floor(Math.random()*ratios.length)];
+                prompt = `Share ${rs.total} in ratio ${rs.r1} to ${rs.r2}. What is the smaller share?`;
+                currentAnswer = rs.ans.toString();
                 break;
-            case 'HCF_LCM':
-                const mode = Math.random() > 0.5 ? 'HCF' : 'LCM';
-                const v1 = Math.floor(Math.random()*10)+2, v2 = Math.floor(Math.random()*10)+2;
-                prompt = `Find the ${mode} of ${v1} and ${v2}`;
-                currentAnswer = (mode==='HCF' ? helpers.gcd(v1,v2) : helpers.lcm(v1,v2)).toString();
+
+            case 'Equations':
+                const xVal = Math.floor(Math.random()*15)+2;
+                const offset = Math.floor(Math.random()*10)+1;
+                prompt = `Solve for x: x plus ${offset} equals ${xVal + offset}.`;
+                currentAnswer = xVal.toString();
+                break;
+
+            case 'LinesAngles':
+                const angleTypes = [
+                    {q:"How many degrees are in a straight line?", a:"180"},
+                    {q:"How many degrees are in a right angle?", a:"90"},
+                    {q:"Angles that sum to 90 degrees are called?", a:"complementary"},
+                    {q:"Angles that sum to 180 degrees are called?", a:"supplementary"}
+                ];
+                const at = angleTypes[Math.floor(Math.random()*angleTypes.length)];
+                prompt = at.q;
+                currentAnswer = at.a;
+                break;
+
+            case 'SquareGeometry':
+                const side = Math.floor(Math.random()*8)+3;
+                const isArea = Math.random() > 0.5;
+                prompt = isArea ? `What is the area of a square with side ${side}?` : `What is the perimeter of a square with side ${side}?`;
+                currentAnswer = isArea ? (side*side).toString() : (side*4).toString();
+                break;
+
+            case 'WordProblems':
+                const numA = Math.floor(Math.random()*20)+10;
+                const numB = Math.floor(Math.random()*10)+5;
+                prompt = `If Musa has ${numA} oranges and gives ${numB} to his brother, how many are left?`;
+                currentAnswer = (numA - numB).toString();
+                break;
+
+            case 'Statistics':
+                const stats = [
+                    {q:"Find the median of 1, 3, and 5.", a:"3"},
+                    {q:"Find the mean of 2, 4, and 6.", a:"4"},
+                    {q:"In the set 2, 2, 3, 5, what is the mode?", a:"2"}
+                ];
+                const st = stats[Math.floor(Math.random()*stats.length)];
+                prompt = st.q;
+                currentAnswer = st.a;
                 break;
         }
 
@@ -274,18 +300,14 @@
 
     function checkAnswer(val) {
         if(!isPlaying) return;
-        const normalizedUser = helpers.normalizeVoice(val);
-        const normalizedCorrect = helpers.normalizeVoice(currentAnswer);
-
-        if(normalizedUser === normalizedCorrect) {
+        if(helpers.normalize(val) === helpers.normalize(currentAnswer)) {
             scores[currentPlayer-1] += 10;
-            feedbackEl.innerText = "Correct! +10";
+            feedbackEl.innerText = "Correct!";
             feedbackEl.className = currentPlayer === 1 ? 'p1-text' : 'p2-text';
         } else {
-            feedbackEl.innerText = `Wrong! It was ${currentAnswer}`;
+            feedbackEl.innerText = `Incorrect! Answer: ${currentAnswer}`;
             feedbackEl.className = 'wrong';
         }
-        
         document.getElementById(`p${currentPlayer}-score`).innerText = scores[currentPlayer-1];
         currentPlayer = currentPlayer === 1 ? 2 : 1;
         input.value = '';
@@ -296,19 +318,14 @@
         if (!recognition || !isPlaying) return;
         recognition.start();
         micBtn.classList.add('listening');
-        feedbackEl.innerText = "Listening...";
     });
 
     if(recognition) {
-        recognition.onresult = (event) => {
-            const transcript = event.results[0][0].transcript;
+        recognition.onresult = (e) => {
+            const transcript = e.results[0][0].transcript;
             input.value = transcript;
             micBtn.classList.remove('listening');
             checkAnswer(transcript);
-        };
-        recognition.onerror = () => {
-            micBtn.classList.remove('listening');
-            feedbackEl.innerText = "Error: Mic not recognized.";
         };
     }
 
@@ -316,8 +333,8 @@
         scores = [0, 0]; timeLeft = 300; isPlaying = true; currentPlayer = 1;
         document.getElementById('p1-score').innerText = 0;
         document.getElementById('p2-score').innerText = 0;
-        input.disabled = false; input.focus();
-        actionBtn.innerText = "Submit (Enter)";
+        input.disabled = false;
+        actionBtn.innerText = "Submit Answer";
         generateQuestion();
         timer = setInterval(() => {
             timeLeft--;
@@ -329,15 +346,14 @@
     function endGame() {
         clearInterval(timer);
         isPlaying = false;
-        input.disabled = true;
-        const winner = scores[0] > scores[1] ? "Player 1 Wins!" : (scores[1] > scores[0] ? "Player 2 Wins!" : "Tie!");
-        qText.innerText = `Game Over! ${winner}`;
-        helpers.speak(`The contest is over. ${winner}`);
-        actionBtn.innerText = "Restart Game";
+        const winner = scores[0] > scores[1] ? "Player 1 Wins!" : (scores[1] > scores[0] ? "Player 2 Wins!" : "It's a Tie!");
+        qText.innerText = `Time Up! ${winner}`;
+        helpers.speak(`Game over. ${winner}`);
+        actionBtn.innerText = "Restart Duel";
     }
 
     actionBtn.addEventListener('click', () => isPlaying ? checkAnswer(input.value) : startGame());
     input.addEventListener('keypress', (e) => { if(e.key === 'Enter') checkAnswer(input.value); });
 </script>
 </body>
-</html>
+    </html>
